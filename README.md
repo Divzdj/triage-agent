@@ -31,7 +31,7 @@ KB_PATH=kb/kb.json
 ### Start the service
 
 ```bash
-uvicorn main:app --reload
+uvicorn app.main:app --reload
 ```
 
 The API will run on: `http://127.0.0.1:8000`
