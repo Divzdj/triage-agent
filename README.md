@@ -94,8 +94,8 @@ You can also open the **Swagger UI** to test endpoints:
 * UI is available in `ui/index.html` for testing tickets locally.
 * Submit ticket descriptions and see structured results in a table.
 * Screenshots included in the repo:
-    * * Swagger Response: shows API response structure
-    * * Postman Collection: postman-collection.json for instant endpoint testing
+    * Swagger Response: shows API response structure
+    * Postman Collection: postman-collection.json for instant endpoint testing
 
 ---
 
