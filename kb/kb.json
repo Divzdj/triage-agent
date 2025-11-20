@@ -1,0 +1,86 @@
+[
+  {
+    "id": "ISSUE-101",
+    "title": "Checkout error 500 on mobile",
+    "category": "Bug",
+    "symptoms": ["500 error", "mobile", "checkout", "payment"],
+    "recommended_action": "Escalate to payments team; attach logs and reproduce steps."
+  },
+  {
+    "id": "ISSUE-102",
+    "title": "Password reset email not received",
+    "category": "Login",
+    "symptoms": ["password reset", "email", "no email", "login"],
+    "recommended_action": "Confirm email deliverability; resend reset link; check email provider delay."
+  },
+  {
+    "id": "ISSUE-103",
+    "title": "High page load times on product listing",
+    "category": "Performance",
+    "symptoms": ["slow", "page load", "latency", "catalog"],
+    "recommended_action": "Collect perf traces; consider CDN caching and DB query optimization."
+  },
+  {
+    "id": "ISSUE-104",
+    "title": "Incorrect pricing displayed for discount code",
+    "category": "Billing",
+    "symptoms": ["discount", "pricing", "cart", "discount not applied"],
+    "recommended_action": "Investigate discount rules; reproduce with test account; escalate to promotions team."
+  },
+  {
+    "id": "ISSUE-105",
+    "title": "App crashes on Android 11",
+    "category": "Bug",
+    "symptoms": ["crash", "android", "stacktrace", "app closed"],
+    "recommended_action": "Collect crash logs, device info; block release until fix if crash rate high."
+  },
+  {
+    "id": "ISSUE-106",
+    "title": "Two-factor authentication not working",
+    "category": "Login",
+    "symptoms": ["2fa", "otp", "login", "not receiving code"],
+    "recommended_action": "Check SMS gateway; advise user to check carrier blocking."
+  },
+  {
+    "id": "ISSUE-107",
+    "title": "Refund not processed after 7 days",
+    "category": "Billing",
+    "symptoms": ["refund", "payment", "bank", "not processed"],
+    "recommended_action": "Verify refund workflow and payment provider; open ticket with finance."
+  },
+  {
+    "id": "ISSUE-108",
+    "title": "Image upload fails occasionally",
+    "category": "Bug",
+    "symptoms": ["upload", "image", "file size", "timeout"],
+    "recommended_action": "Collect client-side logs and server logs; retry with chunked uploads."
+  },
+  {
+    "id": "ISSUE-109",
+    "title": "How to change account email",
+    "category": "Question/How-To",
+    "symptoms": ["change email", "profile", "account settings"],
+    "recommended_action": "Send KB article explaining steps to update account email."
+  },
+  {
+    "id": "ISSUE-110",
+    "title": "Search returns inconsistent results",
+    "category": "Performance",
+    "symptoms": ["search", "inconsistent", "relevance", "ranking"],
+    "recommended_action": "Investigate indexing pipeline and search ranking logs."
+  },
+  {
+    "id": "ISSUE-111",
+    "title": "Session times out too quickly",
+    "category": "Performance",
+    "symptoms": ["session", "timeout", "logout", "session expiry"],
+    "recommended_action": "Review session timeout configuration and token refresh logic."
+  },
+  {
+    "id": "ISSUE-112",
+    "title": "Checkout shows wrong currency conversion",
+    "category": "Billing",
+    "symptoms": ["currency", "conversion", "checkout", "pricing"],
+    "recommended_action": "Check currency conversion microservice and cached rates."
+  }
+]

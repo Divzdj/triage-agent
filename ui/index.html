@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Support Ticket Triage</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 700px; 
+            margin: 40px auto; 
+            padding: 20px;
+            background-color: #fafafa;
+        }
+        h2 {
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            margin-top: 10px;
+            resize: vertical;
+        }
+        button {
+            padding: 8px 12px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 25px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            min-height: 50px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ccc;
+            vertical-align: top;
+        }
+        th {
+            background-color: #eee;
+        }
+        .nested-table th, .nested-table td {
+            font-size: 0.9em;
+        }
+        .button-group {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Support Ticket Triage</h2>
+
+<label>Enter Ticket Description:</label>
+<textarea id="description" placeholder="Describe the issue..."></textarea>
+
+<div class="button-group">
+    <button onclick="submitTicket()">Submit</button>
+    <button onclick="clearTicket()">Clear</button>
+</div>
+
+<div id="result"></div>
+
+<script>
+const BACKEND_URL = "http://127.0.0.1:8000/triage"; // Dev backend
+
+async function submitTicket() {
+    const description = document.getElementById("description").value.trim();
+    const resultBox = document.getElementById("result");
+
+    if (!description) {
+        resultBox.innerHTML = "<span style='color:red;'>Please enter a ticket description.</span>";
+        return;
+    }
+
+    resultBox.innerHTML = "Processing...";
+
+    try {
+        const response = await fetch(BACKEND_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ description })
+        });
+
+        if (!response.ok) {
+            const err = await response.json();
+            resultBox.innerHTML = "<span style='color:red;'>Error: " + (err.detail || "Unknown error") + "</span>";
+            return;
+        }
+
+        const data = await response.json();
+
+        // Build main table
+        let html = `<table>
+                        <tr><th>Field</th><th>Value</th></tr>
+                        <tr><td>Summary</td><td>${data.summary}</td></tr>
+                        <tr><td>Category</td><td>${data.category}</td></tr>
+                        <tr><td>Severity</td><td>${data.severity}</td></tr>
+                        <tr><td>Known Issue</td><td>${data.known_issue}</td></tr>
+                        <tr><td>Suggested Next Step</td><td>${data.suggested_next_step}</td></tr>`;
+
+        // KB Matches nested table
+        if (data.kb_matches && data.kb_matches.length > 0) {
+            html += `<tr><td>KB Matches</td><td>
+                        <table class="nested-table">
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Score</th>
+                                <th>Recommended Action</th>
+                            </tr>`;
+            data.kb_matches.forEach(match => {
+                html += `<tr>
+                            <td>${match.id}</td>
+                            <td>${match.title}</td>
+                            <td>${match.score}</td>
+                            <td>${match.recommended_action}</td>
+                         </tr>`;
+            });
+            html += `</table></td></tr>`;
+        }
+
+        html += `</table>`;
+        resultBox.innerHTML = html;
+
+    } catch (e) {
+        resultBox.innerHTML = "<span style='color:red;'>Error: " + e.message + "</span>";
+    }
+}
+
+function clearTicket() {
+    document.getElementById("description").value = "";
+    document.getElementById("result").innerHTML = "";
+}
+</script>
+
+</body>
+</html>

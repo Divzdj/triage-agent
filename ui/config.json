@@ -1,0 +1,4 @@
+{
+    "dev": "http://127.0.0.1:8000/triage",
+    "prod": "https://your-production-url.com/triage"
+}
