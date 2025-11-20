@@ -32,6 +32,7 @@ KB_PATH=kb/kb.json
 
 ```bash
 uvicorn app.main:app --reload
+
 ```
 
 The API will run on: `http://127.0.0.1:8000`
